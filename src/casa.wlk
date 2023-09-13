@@ -42,9 +42,21 @@ object casa {
 object cuentaCorriente {
 	
 	var property saldo = 0
-		
+
+	method haySaldoSuficiente(monto){
+		return monto <= saldo
+	}		
+	
+	method validarExtraer(monto){
+		if(not self.haySaldoSuficiente(monto)){
+			//self.error("No hay saldo suficiente! hay: " + saldo + " y se intenta extraer: " + monto)
+			self.error("No hay saldo suficiente!")
+		}
+	}
+	
 	method extraer(monto) {
-		saldo -= monto		
+		self.validarExtraer(monto)
+		saldo -= monto 
 	}
 	
 	method depositar(monto) {
